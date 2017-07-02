@@ -18,3 +18,20 @@
 
 首先，你可能会问，本地仓库在哪？
 
+我们使用命令`git init`或`git clone`等就会创建本地仓库（Repository），即工作区目录下的`.git`文件夹。
+
+我们再来看下什么是快照？
+
+![](/assets/snapshot-version-01.png)
+
+这是项目的三个版本，版本1中有两个文件A和B，然后修改了A，变成了A1，形成了版本2，接着又修改了B变为B1，形成了版本3。
+
+如果我们把项目的每个版本都保存到本地仓库，需要保存至少6个文件，而实际上，只有4个不同的文件，A、A1、B、B1。为了节省存储的空间，我们要像一个方法将同样的文件只需要保存一份。这就引入了[Sha-1算法](https://en.wikipedia.org/wiki/SHA-1)。
+
+可以使用git命令计算文件的 sha-1 值。
+
+```bash
+echo 'test content' | git hash-object --stdin
+d670460b4b4aece5915caf5c68d12f560a9fe3e4
+```
+
