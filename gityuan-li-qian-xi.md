@@ -87,4 +87,40 @@ Sha-1的非常有特点：
 
 比如一个文件可能既有上面的 modified 状态，又有下面 modified 状态，但其实他们表示了不同的状态，git 会使用绿色和红色把这两中 modified 状态区分开来。
 
+## 4. 分支
+
+![](/assets/git-branch.png)
+
+**分支的目的是让我们可以并行的进行开发。**比如我们当前正在开发功能，但是需要修复一个紧急bug，我们不可能在这个项目正在修改的状态下修复 bug，因为这样会引入更多的bug。
+
+有了分支的概念，我们就可以新建一个分支，修复 bug，使新功能与 bug 修复同步进行。
+
+分支的实现其实很简单，我们可以先看一下 .git/HEAD 文件，它保存了当前的分支。
+
+```bash
+cat .git/HEAD
+=>ref: refs/heads/master
+```
+
+其实这个 ref 表示的就是一个分支，它也是一个文件，我们可以继续看一下这个文件的内容：
+
+```bash
+cat .git/refs/heads/master
+=> 2b388d2c1c20998b6233ff47596b0c87ed3ed8f8
+```
+可以看到分支存储了一个 object，我们可以使用 cat-file 命令继续查看该 object 的内容。
+
+```bash
+git cat-file -p 2b388d2c1c20998b6233ff47596b0c87ed3ed8f8
+=> tree 15f880be0567a8844291459f90e9d0004743c8d9
+=> parent 3d885a272478d0080f6d22018480b2e83ec2c591
+=> author Hehe Tan <xiayule148@gmail.com> 1460971725 +0800
+=> committer Hehe Tan <xiayule148@gmail.com> 1460971725 +0800
+=> 
+=> add branch paramter for rebase
+```
+
+从上面的内容，我们知道了**分支指向了一次提交**。为什么分支指向一个提交的原因，其实也是git中的分支为什么这么轻量的答案。
+
+因为分支就是指向了一个 commit 的指针，当我们提交新的commit，这个分支的指向只需要跟着更新就可以了，而创建分支仅仅是创建一个指针。
 
