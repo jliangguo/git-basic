@@ -124,3 +124,7 @@ git cat-file -p 2b388d2c1c20998b6233ff47596b0c87ed3ed8f8
 
 因为分支就是指向了一个 commit 的指针，当我们提交新的commit，这个分支的指向只需要跟着更新就可以了，而创建分支仅仅是创建一个指针。
 
+## References
+
+1. [使用原理视角看 Git](https://segmentfault.com/a/1190000005695097)，Git基本原理与命令简介
+
